@@ -4,7 +4,7 @@ Description=Event Generator
 
 [Service]
 User=olga
-WorkingDirectory=/home/olga/learning/elastic/repo
+WorkingDirectory=/home/olga/learning/elastic/repo/service
 ExecStart=python3 eventGenerator.py
 Restart=always
 # replace /home/user/.virtualenv/bin/python with your virtualenv and main.py with your script
