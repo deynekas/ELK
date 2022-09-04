@@ -1,0 +1,6 @@
+filebeat.inputs:
+- type: log
+  paths:
+    - /var/log/faile2ban/fail2ban.log* 
+output.logstash:
+  hosts: ["localhost:5044"]
