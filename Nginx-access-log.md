@@ -21,6 +21,7 @@ output.elasticsearch:
     Filebeat input configurations, which contain the default paths where to look for the log files. These default paths depend on the operating system. The Filebeat configuration is also responsible with stitching together multiline events when needed.
     Elasticsearch ingest pipeline definition, which is used to parse the log lines.
     Fields definitions, which are used to configure Elasticsearch with the correct types for each field. They also contain short descriptions for each of the fields.* 
+    
 `filebeat modules enable nginx`
 
 4. Configure Nginx module to use log location 
