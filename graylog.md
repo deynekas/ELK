@@ -1,4 +1,4 @@
-# Greylog
+# Graylog
 ## installation
 
 1. add  repository and install
@@ -11,16 +11,16 @@ sudo apt-get update && sudo apt-get install graylog-server graylog-enterprise-pl
 2. create root passwords
 `echo -n "Enter Password: " && head -1 </dev/stdin | tr -d '\n' | sha256sum | cut -d" " -f1`
 
-Longman195
+xxxongmanxxx
 9e5a18c74bb0c722675bb9c05c7f7ff6f44fb62acccbaf593c27b636befa7181
 
-3. create sercret to protect user paswrds
+3. create sercret to protect user paswords
 ```
 sudo apt install pwgen
 pwgen -N 1 -s 96
 NWj65v939a67eQoIoIK32oIh6KJC3cPmsvwBkjL37TaVhojDTJcq4tiqBiRHGXCrrxT8CAapUwrimJCqVlQqbPzZgEA2bMQn
 ```
-4. Set in greylog config 
+4. Set in graylog config 
 
 sudo nano /etc/graylog/server/server.conf
 password_secret
@@ -28,8 +28,6 @@ root_password_sha2
 
 
 ## Mongodb 
-
-
 ```
 docker pull mongo
 
@@ -77,7 +75,13 @@ http://127.0.0.1:9000/gettingstarted
     JSON Path from HTTP API
     Netflow (UDP)
     Plain/Raw Text (TCP, UDP, AMQP, Kafka)
-3. setup filebeat to send messages to configured input
+   
+3. manually configure extractor on input to extract data from message
+> extractor can be based on Grok patterns, regular expressions, json,....
+
+> Pattern: %{IPORHOST:clientip} [a-zA-Z\.\@\-\+_%]+ [a-zA-Z\.\@\-\+_%]+ \[%{HTTPDATE:timestamp}\] "%{WORD:verb} %{URIPATHPARAM:request} HTTP/%{NUMBER:httpversion}" %{NUMBER:response} (?:%{NUMBER:bytes}|-) (?:"(?:%{URI:referrer}|-)"|%{QS:referrer}) 
+
+4. setup filebeat to send messages to configured input
 ```
 filebeat.inputs:
 - type: filestream
@@ -92,13 +96,8 @@ setup.template.settings:
 output.logstash:
   hosts: ["localhost:5044"]
 ```
-4. Start filebeat 
+5. Start filebeat 
 `sudo filebeat -e -c /etc/filebeat/filebeat-fail2ban-graylog.yml -d "publish"`
-
-5. manually configure extractor on input to extract data from message
-> extractor can be based on Grok patterns, regular expressions, json,....
-
-> Pattern: %{IPORHOST:clientip} [a-zA-Z\.\@\-\+_%]+ [a-zA-Z\.\@\-\+_%]+ \[%{HTTPDATE:timestamp}\] "%{WORD:verb} %{URIPATHPARAM:request} HTTP/%{NUMBER:httpversion}" %{NUMBER:response} (?:%{NUMBER:bytes}|-) (?:"(?:%{URI:referrer}|-)"|%{QS:referrer}) 
 
 ### Collectig in passive mode
 
