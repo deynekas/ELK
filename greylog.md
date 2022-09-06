@@ -31,7 +31,6 @@ root_password_sha2
 
 
 ```
-
 docker pull mongo
 
 mkdir learning/elastic/MongoDockerData
