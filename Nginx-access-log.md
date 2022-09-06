@@ -24,7 +24,7 @@ output.elasticsearch:
     
 `filebeat modules enable nginx`
 
-4. Configure Nginx module to use log location 
+4. Configure Nginx module to read nginx logs 
 
 ```
 - module: nginx
@@ -37,7 +37,7 @@ output.elasticsearch:
   
 `filebeat setup -e`
   > This step loads the recommended index template for writing to Elasticsearch and deploys the sample dashboards for visualizing the data in Kibana.
-    This step does not load the ingest pipelines used to parse log lines. By default, ingest pipelines are set up automatically the first time you run the module and connect to Elasticsearch
+    This step does not load the ingest pipelines used to parse log lines. By default, ingest pipelines are set up automatically the first time you run the     module and connect to Elasticsearch
 
 6. Start filebeat
 `sudo service filebeat start`
